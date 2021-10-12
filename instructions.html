@@ -1,0 +1,168 @@
+<html>
+    <head>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="includes/css/voice.css"/>
+
+
+ 
+</script>
+
+<style>
+    body
+    {
+    background-color:#3d3d3d;
+        height: 100vh;
+        background-size: 100% 100%;
+    }
+    #form1Example3
+    {
+      height: 300;
+      width: 500;
+    }
+</style>
+<script type="text/javascript">
+    
+</script>
+<script type="text/javascript" src="includes/js/VoiceAssistant.js"></script>
+    <script type="text/javascript" src="includes/js/exampleGenericRequestHandler.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){        
+        $(window).on('scroll',function() {
+          var scrolltop = $(this).scrollTop();
+       
+          if(scrolltop >= 50) {
+            $('#fixed-top-bar').fadeIn(250);
+          }
+          
+          else if(scrolltop <= 50) {
+            $('#fixed-top-bar').fadeOut(250);
+          }
+        });
+      });
+
+      window.onload = function (){ 
+        voiceAssistant.configure(
+          {
+            requestHandlers: vocieRequestHandlers,
+            
+         requestHandlers: [
+             new VoiceRequestHandler([
+                 "instructions",
+                 "how to use",
+                 "tell me about it"
+             ], function() {
+                 voiceAssistant.say("The page is loaded to compose page when you say compose command when the page is loaded.Single click it says the user to tell about TO EMAIL ID Double click : it says the user to tell about BODY"
+);
+                 
+                 
+             }),
+             new VoiceRequestHandler([
+                 "home",
+                 "get me back"
+                 
+             ], function(c) {
+              var url= "index.html";
+               window.location = url;
+             }),
+
+         ],
+            callBackAfterReady: function() {
+                voiceAssistant.say("this is the instructions to use blind voice ");
+                voiceAssistant.say("press on the left most corner"); 
+            },  
+           
+            onInterimResult: function(text) {
+              console.log("Interim Speech:" + text);
+              if(!$('#interim').is(':last-child')){
+                $("#interim").appendTo("#chat");
+              }
+              $("#interim").show();
+              $("#interim").text(text);
+            },
+            onFinalResult: function(text) {
+              console.log("Final Speech:" + text);
+              $("#interim").hide();
+              $("#chat").append($("<p class='triangle-right right color-blue'></p>").text(text));
+            },
+            
+            onSpeechStart: function(text){
+              console.log("Going to speek:" + text);
+              $("#chat").append($("<p class='triangle-right left color-orange'></p>").text(text)); 
+            }
+          }
+        ); 
+      };
+      
+      function startListening() {
+        voiceAssistant.listen();
+      }
+
+    </script>
+
+
+</script>
+        
+
+    </head>
+    <body>
+        <nav>
+            
+        
+        
+    </nav>
+   
+    
+        
+        <div  >
+                
+            
+            <div class="container  text-left text-white hearderset">
+                <h2><p class="font-weight-bolder text-secondary">BlindVoice</p></h2>
+                <div class="container  text-center text-white hearderset">
+                <h1><p class="font-weight-lighter text-secondary">instructions</p></h1></div>
+                <section class="vh-100">
+                    
+                      <div class="row d-flex justify-content-center align-items-center h-75">
+                      
+                              <div class="conversation">
+                                <div id="chat" class="chat">
+                                  <p id="interim" class="triangle-right right color-blue hide"></p> 
+                                </div>
+                              </div>
+                           
+                          </div>
+                        
+                      </div>
+                    
+            </div>
+            <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-bottom">
+               
+                    <div id="top-bar">
+                        <img id="mic" class="mic display" onclick="startListening();" src="includes/images/listen.png" />
+                      </div>
+
+
+
+                      <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link ">home</a>
+            
+                        </li>
+                    </ul>
+                
+    
+              </nav>
+           
+    </body>
+</html>

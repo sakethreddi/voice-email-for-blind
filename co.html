@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="com.css">
+<title> CSS Login Screen Tutorial </title>
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+    function record()
+    {
+      var recognition = new webkitSpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.onresult = function (event) {
+        console.log(event);
+        document.getElementById('speechtotext').value = event.results[0][0].transcript;
+  
+  
+  
+    }
+    recognition.start();
+  }
+  function record2()
+    {
+      var recognition = new webkitSpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.onresult = function (e) {
+        console.log(e);
+        document.getElementById('speechtotext1').value = e.results[0][0].transcript;
+  
+    }
+    recognition.start();
+  }
+  function record21()
+    {
+      var recognition = new webkitSpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.onresult = function (ev) {
+        console.log(ev);
+        document.getElementById('speechtotext11').value = ev.results[0][0].transcript;
+        document.getElementById('labnol').submit();
+  
+    }
+    recognition.start();
+  }
+  </script>
+  
+<body>
+  <body onload="record()" onclick="record2()" ondblclick="record21()">
+    <nav  class="navbar navbar-expand-md bg-dark navbar-dark fixed-top" >
+        <div class="container">
+            <a href="" class="navbar-brand text-warning font-weight-bold"> BlindVoice </a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsenavbar">
+             <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse text-center" id="collapsenavbar">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link text-white">home</a>
+
+                </li>
+                </ul>
+                </div>
+                </div>
+        
+        </nav>
+    <div class="login-page">  
+        
+      <div class="form">
+        <div class="login">
+          <div class="login-header">
+            <h3>COMPOSE</h3>
+            <p>Please enter your credentials to send.</p>
+          </div>
+        </div>
+        <form class="login-form" action="javascript:sendEmail()"  id="labnol">
+          <input type="text" id="speechtotext" placeholder=" speak the subject"/>
+          <input type="text" id="speechtotext1" placeholder="speak the email"/>
+          <textarea id="speechtotext11"  rows="10" cols="45" required placeholder=" speak the body" ></textarea>
+         
+                <button >submit</button>
+            
+          </form>
+         
+        
+      </div>
+    </div>
+</body>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script>
+  
+    function sendEmail()
+    {
+        Email.send({
+    Host : "smtp.mailtrap.io",
+    Username : "2e1721185c64f2",
+    Password : "149da7aca9b86c",
+    To : document.getElementById("speechtotext1").value+"@gmail.com",
+    From : "kilmehuspi@biyac.com",
+    Subject :document.getElementById("speechtotext").value,
+    Body :document.getElementById("speechtotext11").value
+}).then(
+  message => {
+    if(message=="ok")
+    {
+      alert("mail sent sucessfully");
+    }
+  }
+);
+    }
+
+</script>
+</html>

@@ -1,0 +1,150 @@
+<html>
+    <head>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://smtpjs.com/v3/smtp.js">
+<link rel="stylesheet" type="text/css" href="includes/css/voice.css"/>
+ 
+</script>
+
+    
+
+
+<style>
+    body
+    {
+    background-color:#3d3d3d;
+        height: 100vh;
+        background-size: 100% 100%;
+    }
+    #transcript
+    {
+      height: 300;
+      width: 500;
+    }
+</style>
+<script type="text/javascript">
+    
+</script>
+<script>
+  
+  function startDictation() {
+
+if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+  var recognition = new webkitSpeechRecognition();
+
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.lang = "en-US";
+  recognition.start();
+
+  recognition.onresult = function(e) {
+    document.getElementById('transcript').value = e.results[0][0].transcript;
+    recognition.stop();
+    document.getElementById('labnol').submit();
+  };
+
+  recognition.onerror = function(e) {
+    recognition.stop();
+  }
+
+}
+}
+
+
+</script>
+        
+
+    </head>
+    <body>
+        
+        <div  >
+                
+            
+            <div class="container  text-left text-white hearderset">
+                <h2><p class="font-weight-bolder text-secondary">BlindVoice</p></h2>
+                <div class="container  text-center text-white hearderset">
+                <h1><p class="font-weight-lighter text-secondary">FEEDBACK</p></h1></div>
+                <section class="vh-100">
+                    <div class="container-fluid h-custom">
+                      <div class="row d-flex justify-content-center align-items-center h-75">
+                        
+                        <div class="col-md-6 col-lg-6 col-xl-4 offset-xl-1">
+                          <form > 
+                           <div class="form-outline mb-4">
+                                
+                              <div class="form-outline mb-4">
+                                <form id="labnol" method="get" action="javascript:sendEmail()">
+                                  <div class="speech">
+                                    <input type="text" name="q" id="transcript" placeholder="Speak" />
+                                    <img onclick="startDictation()" />
+                                  </div>
+                                </form>
+                              </div>
+              
+                              
+                              <div class="row mb-4">
+                                <div class="col d-flex justify-content-center">
+                                  
+                                 
+                                </div>
+                                <div class=" container  text-center " >
+
+              
+                              
+                              <button type="submit" class="btn btn-primary btn-block" onclick="sendEmail()">Send</button>
+                            </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            </div>
+            <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-bottom">
+                <div class="container">
+                
+                <button type="button" id="ras" class="btn btn-light"><img onclick="startDictation()" src="https://i.imgur.com/cHidSVu.gif" /></button>
+                </div>
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a href="index.html" class="nav-link ">home</a>
+      
+                  </li>
+              </ul>
+              </nav>
+    </body>
+    <script>
+       function sendEmail()
+    {
+        Email.send({
+    Host : "smtp.mailtrap.io",
+    Username : "2e1721185c64f2",
+    Password : "149da7aca9b86c",
+    To : "feedbackmail@gmail.com",
+    From : "users@biyac.com",
+    Subject :document.getElementById("transcript").value
+    
+}).then(
+  message => {
+    if(message=="ok")
+    {
+      alert("feedback sent");
+    }
+  }
+);
+    }
+    </script>
+   
+</html>

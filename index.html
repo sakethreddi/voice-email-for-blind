@@ -1,0 +1,135 @@
+<html>
+    <head>
+        <title>
+          Blindvoice
+        </title>
+       <link rel="stylesheet" type="text/css" href="style.css">
+       <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="includes/css/voice.css"/>
+
+<script type="text/javascript" src="includes/js/VoiceAssistant.js"></script>
+<script type="text/javascript" src="includes/js/exampleGenericRequestHandler.js"></script>
+<script type="text/javascript">
+     window.onload = function (){ 
+        
+        voiceAssistant.configure(
+          {
+            listenContinuously: true,
+            requestHandlers: vocieRequestHandlers,
+            requestHandlers: [
+             new VoiceRequestHandler([
+                 "compose",
+                 "send mail"
+                 
+             ], function() {
+              redir();
+             }),
+             new VoiceRequestHandler([
+                 "instructions",
+                 "how to use"
+                 
+             ], function(c) {
+              var url= "instructions.html";
+               window.location = url;
+             }),
+             new VoiceRequestHandler([
+                 "feedback",
+                 "suggestions"
+                 
+             ], function(r) {
+              var url= "feedback.html";
+               window.location = url;
+             })
+         ],
+              callBackAfterReady: function() {
+                voiceAssistant.say("Hello! Welcome to blind voice !");
+            },
+            onInterimResult: function(text) {
+              console.log("Interim Speech:" + text);
+              if(!$('#interim').is(':last-child')){
+                $("#interim").appendTo("#chat");
+              }
+              $("#interim").show();
+              $("#interim").text(text);
+            },
+            onFinalResult: function(text) {
+              console.log("Final Speech:" + text);
+              $("#interim").hide();
+              $("#chat").append($("<p class='triangle-right right color-blue'></p>").text(text));
+            }
+            
+          }
+        ); 
+      };
+         function redir()
+         {
+          var url= "co.html";
+               window.location = url;
+         } 
+</script>
+  
+    </head>
+    <body><nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+        <div class="container">
+            <a href="" class="navbar-brand text-warning font-weight-bold"><img src="logo.jpeg" alt="logo" style="width: 50px;"> BlindVoice </a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsenavbar">
+             <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse text-center" id="collapsenavbar">
+             <ul class="navbar-nav ml-auto">
+                 <li class="nav-item">
+                     <a href="index.html" class="nav-link text-white">home</a>
+
+                 </li>
+                 <li class="nav-item ">
+                    <a href="instructions.html" class="nav-link text-white">instructions</a>
+
+                </li><li class="nav-item ">
+                    <a href="feedback.html" class="nav-link text-white">feedback</a>
+
+                </li>
+               </ul>
+
+         </div>
+        </div>
+    </nav>
+   
+        
+
+            
+        <div class="bgimg ">
+            
+              <div class="container text-center text-white hearderset">
+                  <h2><p class="font-weight-bolder text-secondary">welcome to BlindVoice</p></h2>
+                  <h1><p class="font-weight-bolder text-secondary">it's nice to meet you</p></h1>
+              </br></br>
+                   <div class="conversation">
+                    <div id="chat" class="chat">
+                      <p id="interim" class="triangle-right right color-blue hide"></p> 
+                    </div>
+                  </div>
+              </div>
+        </div>
+         <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-bottom">
+            <div class="container">
+            
+            <button type="button" class="btn btn-light" onclick="redir()">compose </button>
+            </div>
+            
+            
+          </nav>
+         
+
+    </body>
+</html>
